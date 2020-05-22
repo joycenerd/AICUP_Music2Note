@@ -61,7 +61,6 @@
 /home/joycenerd/AICUP_Music2Note/Data/MIR/65
 /home/joycenerd/AICUP_Music2Note/Data/MIR/445
 /home/joycenerd/AICUP_Music2Note/Data/MIR/198
-/home/joycenerd/AICUP_Music2Note/Data/MIR/AIcup提供dataset說明.docx
 /home/joycenerd/AICUP_Music2Note/Data/MIR/492
 /home/joycenerd/AICUP_Music2Note/Data/MIR/480
 /home/joycenerd/AICUP_Music2Note/Data/MIR/164
@@ -218,7 +217,6 @@
 /home/joycenerd/AICUP_Music2Note/Data/MIR/33
 /home/joycenerd/AICUP_Music2Note/Data/MIR/21
 /home/joycenerd/AICUP_Music2Note/Data/MIR/429
-/home/joycenerd/AICUP_Music2Note/Data/MIR/traverse.py
 /home/joycenerd/AICUP_Music2Note/Data/MIR/67
 /home/joycenerd/AICUP_Music2Note/Data/MIR/426
 /home/joycenerd/AICUP_Music2Note/Data/MIR/259
