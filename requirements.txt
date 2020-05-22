@@ -1,1 +1,10 @@
 pytube3
+ffmpeg
+pytorch
+scipy
+tqdm
+lameenc
+musdb
+museval
+requests
+treetable
