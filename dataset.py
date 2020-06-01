@@ -19,8 +19,8 @@ class NoteDataset(Dataset):
         }
 
 
-def gen_loader(dataset, batch_size, collate_fn, shuffle=True):
-    data_loader = DataLoader(dataset, batch_size, shuffle, collate_fn)
+def gen_loader(dataset, batch_size, num_workers, collate_fn, shuffle=True):
+    data_loader = DataLoader(dataset=dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle, collate_fn=collate_func)
     return data_loader
 
 

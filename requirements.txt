@@ -8,3 +8,4 @@ musdb
 museval
 requests
 treetable
+tqdm

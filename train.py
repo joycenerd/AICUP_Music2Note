@@ -8,6 +8,7 @@ import torch
 from model import Rnn
 import torch.nn as nn
 import copy
+from tqdm import tqdm
 
 
 def preprocess(data_seq, label):
@@ -44,12 +45,13 @@ def preprocess(data_seq, label):
 
 def train():
     train_set = NoteDataset(data_seq, label)
-    train_loader = gen_loader(dataset=train_set, batch_size=opt.batch_size, collate_fn=collate_func)
+    train_loader = gen_loader(dataset=train_set, batch_size=opt.batch_size, num_workers=opt.num_workers, collate_fn=collate_func)
 
     model = Rnn(opt.input_dim, opt.hidden_size)
     model = model.cuda(opt.cuda_devices)
 
     best_model_params = copy.deepcopy(model.state_dict())
+    best_loss = float('inf')
 
     criterion_onset = nn.BCELoss()
     criterion_pitch = nn.SmoothL1Loss()
@@ -62,9 +64,9 @@ def train():
         print('-' * len(f'Epoch: {epoch + 1}/{opt.epochs}'))
 
         training_loss = 0.0
-        best_loss = float('inf')
+        total_length=0.0
 
-        for i, sample in enumerate(train_loader):
+        for i, sample in enumerate(tqdm(train_loader)):
             inputs = sample['data']
             inputs = torch.FloatTensor(inputs)
             inputs = inputs.permute(1, 0, 2)
@@ -83,12 +85,13 @@ def train():
             onset_loss = criterion_onset(output1, torch.narrow(target, dim=2, start=0, length=2))
             pitch_loss = criterion_pitch(output2, torch.narrow(target, dim=2, start=2, length=1))
             total_loss = onset_loss + pitch_loss
-            training_loss = training_loss + total_loss.item() * inputs.size(0)
+            training_loss = training_loss + total_loss.item()
+            total_length += 1
 
             total_loss.backward()
             optimizer.step()
 
-        training_loss /= len(train_set)
+        training_loss /= total_length
         print(f'training_loss: {training_loss:.4f}\n')
 
         if training_loss < best_loss:
@@ -129,6 +132,7 @@ if __name__ == '__main__':
         data = []
         for key, value in temp.items():
             data.append(value)
+            print(key)
 
         data = np.array(data).T
         data_seq.append(data)
