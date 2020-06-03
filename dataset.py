@@ -2,6 +2,8 @@ from torch.utils.data import Dataset,DataLoader
 import torch
 from torch.nn.utils import rnn
 import numpy as np
+from torch.utils.data import random_split
+from options import opt
 
 
 class NoteDataset(Dataset):
@@ -19,9 +21,13 @@ class NoteDataset(Dataset):
         }
 
 
-def gen_loader(dataset, batch_size, num_workers, collate_fn, shuffle=True):
-    data_loader = DataLoader(dataset=dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle, collate_fn=collate_func)
-    return data_loader
+def get_loader(data_set):
+    total_sz=data_set.__len__()
+    valid_sz=int(0.15*total_sz)
+    train_set,valid_set=random_split(data_set,[total_sz-valid_sz,valid_sz])
+    train_loader = DataLoader(dataset=train_set, batch_size=opt.batch_size, num_workers=opt.num_workers, collate_fn=collate_func, shuffle=True)
+    valid_loader = DataLoader(dataset=valid_set, batch_size=opt.batch_size, num_workers=opt.num_workers, collate_fn=collate_func, shuffle=True)
+    return train_loader, valid_loader
 
 
 def collate_func(samples):

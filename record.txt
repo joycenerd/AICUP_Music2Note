@@ -1,6 +1,0 @@
-50
-Best training loss: 5.8557
-
-100
-Best training loss: 5.8379
-

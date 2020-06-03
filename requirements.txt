@@ -1,11 +1,4 @@
-pytube3
-ffmpeg
-pytorch
-scipy
-tqdm
-lameenc
-musdb
-museval
-requests
-treetable
-tqdm
+conda install pytorch
+conda install scipy
+conda install tqdm
+conda install matplotlib
